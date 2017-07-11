@@ -1,7 +1,12 @@
 SRC_ASM				= 		asm/boot.asm
 
-SRC_KERNEL			=		src/Kernel.cpp		\
-							src/Keyboard.cpp 
+SRC_KERNEL			=		src/main.cpp		\
+							src/Kernel.cpp		\
+							src/Keyboard.cpp 	\
+							src/libcpp/memset.cpp \
+							src/libcpp/printf.cpp \
+							src/libcpp/strlen.cpp \
+							src/libcpp/putchar.cpp \
 
 OBJ_ASM				=		$(SRC_ASM:asm/%.asm=bin/%.o)
 

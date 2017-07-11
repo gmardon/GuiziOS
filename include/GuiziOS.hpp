@@ -2,7 +2,10 @@
 #define _GUIZIOS_HPP_
 #include <stdbool.h> 
 #include <stddef.h>
+#include <stdarg.h>
 #include <stdint.h>
+#include <limits.h>
+#define EOF (-1)
 
 enum vga_color {
 	VGA_COLOR_BLACK = 0,
@@ -22,4 +25,11 @@ enum vga_color {
 	VGA_COLOR_LIGHT_BROWN = 14,
 	VGA_COLOR_WHITE = 15,
 };
+
+extern "C" {
+    bool print(const char* data, size_t length);
+    int printf(const char* format, ...);
+    size_t strlen(const char* str);
+    int putchar(int ic);
+}
 #endif
