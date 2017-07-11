@@ -3,9 +3,9 @@ SRC_ASM				= 		asm/boot.asm
 SRC_KERNEL			=		src/Kernel.cpp		\
 							src/Keyboard.cpp 
 
-OBJ_ASM				=		$(SRC_ASM:.asm=.o)
+OBJ_ASM				=		$(SRC_ASM:asm/%.asm=bin/%.o)
 
-OBJ_KERNEL			=		$(SRC_KERNEL:.cpp=.o)
+OBJ_KERNEL			=		$(SRC_KERNEL:src/%.cpp=bin/%.o)
 
 CPPFLAGS			=		-ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -I./include/
 
@@ -18,10 +18,10 @@ kernel:			$(OBJ_KERNEL)
 asm:			$(OBJ_ASM)
 #				./toolchain/cross/x86_64/bin/i686-elf-as $(SRC_ASM) -o $(OBJ_ASM)
 
-%.o: %.cpp
+bin/%.o: src/%.cpp
 				./toolchain/cross/x86_64/bin/i686-elf-g++ -c $< -o $@ $(CPPFLAGS) 
 
-%.o: %.asm
+bin/%.o: asm/%.asm
 				./toolchain/cross/x86_64/bin/i686-elf-as $< -o $@ $(OBJ_ASM)
 clean:
 				rm -rf $(OBJ_ASM)
