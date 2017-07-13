@@ -31,5 +31,6 @@ extern "C" {
     int printf(const char* format, ...);
     size_t strlen(const char* str);
     int putchar(int ic);
+	void abort();
 }
 #endif
