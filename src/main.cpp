@@ -1,5 +1,8 @@
 #include "Kernel.hpp"
 
+Kernel *kernel;
+
 extern "C" void main(void) {
-    printf("[BOOT] ");
+    kernel = new Kernel();
+    kernel->run();
 }

@@ -1,8 +1,9 @@
-SRC_ASM				= 		asm/boot.asm
+SRC_ASM				= 		asm/boot.asm		
 
 SRC_KERNEL			=		src/main.cpp		\
 							src/Kernel.cpp		\
 							src/Keyboard.cpp 	\
+							src/Terminal.cpp 	\
 							src/libcpp/memset.cpp \
 							src/libcpp/printf.cpp \
 							src/libcpp/strlen.cpp \
@@ -15,7 +16,7 @@ OBJ_KERNEL			=		$(SRC_KERNEL:src/%.cpp=bin/%.o)
 CPPFLAGS			=		-ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -I./include/
 
 all:			kernel asm
-				./toolchain/cross/x86_64/bin/i686-elf-gcc -T link.ld -o bin/GuiziOS -ffreestanding -O2 -nostdlib $(OBJ_KERNEL) $(OBJ_ASM) -lgcc
+				./toolchain/cross/x86_64/bin/i686-elf-gcc -g -T link.ld -o bin/GuiziOS -ffreestanding -O2 -nostdlib $(OBJ_KERNEL) $(OBJ_ASM) -lgcc
 
 kernel:			$(OBJ_KERNEL) 
 #				./toolchain/cross/x86_64/bin/i686-elf-g++ -c $(SRC_KERNEL) -o $(OBJ_KERNEL) $(CPPFLAGS) 
