@@ -1,5 +1,7 @@
 #include "Kernel.hpp"
 
+Kernel Kernel::instance = Kernel();
+
 inline void Kernel::write_io(uint16_t port, uint8_t val)
 {
     asm volatile ( "outb %0, %1" : : "a"(val), "Nd"(port) );
@@ -21,7 +23,7 @@ inline uint8_t Kernel::read_io(uint16_t port)
 
 Kernel::Kernel() 
 {
-    this->terminal = new Terminal();
+    this->terminal = Terminal();
     printf("[GuiziOS] Kernel is starting...\n");
 }
 
@@ -33,4 +35,9 @@ Kernel::~Kernel()
 void Kernel::run()
 {
 
+}
+
+Kernel& Kernel::Instance()
+{
+    return instance;
 }

@@ -11,9 +11,12 @@ public:
     inline void write_io(uint16_t port, uint8_t val);
     inline uint8_t read_io(uint16_t port);
     void run();
-    
+
+    static Kernel& Instance();
 private:
-    const Terminal *terminal;
+    Terminal terminal;
+    static Kernel instance;
 };
 
+extern "C" Kernel kernel;
 #endif

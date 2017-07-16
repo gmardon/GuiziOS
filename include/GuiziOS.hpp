@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include <limits.h>
 #define EOF (-1)
+#define NULL 0
 
 extern "C" {
     bool print(const char* data, size_t length);
@@ -13,6 +14,8 @@ extern "C" {
     size_t strlen(const char* str);
     int putchar(int ic);
 	void abort();
+
+    
 }
 
 #endif

@@ -37,5 +37,7 @@ private:
     size_t column;
     uint8_t color;
     uint16_t* buffer;
+	static uint8_t vga_entry_color(enum vga_color fg, enum vga_color bg);
+	static uint16_t vga_entry(unsigned char uc, uint8_t color);
 };
 #endif
