@@ -1,19 +1,20 @@
 SRC_ASM				= 		asm/boot.asm		
 
-SRC_KERNEL			=		src/main.cpp		\
-							src/Kernel.cpp		\
-							src/Keyboard.cpp 	\
-							src/Terminal.cpp 	\
-							src/libcpp/memset.cpp \
-							src/libcpp/printf.cpp \
-							src/libcpp/strlen.cpp \
-							src/libcpp/putchar.cpp
+SRC_KERNEL			=		src/main.c		\
+							src/kernel.c	\
+							src/keyboard.c 	\
+							src/terminal.c 	\
+                            src/libc/abort.c \
+							src/libc/memset.c \
+							src/libc/printf.c \
+							src/libc/strlen.c \
+							src/libc/putchar.c
 
 OBJ_ASM				=		$(SRC_ASM:asm/%.asm=bin/%.o)
 
-OBJ_KERNEL			=		$(SRC_KERNEL:src/%.cpp=bin/%.o)
+OBJ_KERNEL			=		$(SRC_KERNEL:src/%.c=bin/%.o)
 
-CPPFLAGS			=		-ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -I./include/
+CFLAGS			=		-ffreestanding -O2 -Wall -Wextra -I./include/ -std=gnu99 
 
 all:			kernel asm
 				./toolchain/cross/x86_64/bin/i686-elf-gcc -T link.ld -o bin/GuiziOS -nostdlib -nostartfiles -ffreestanding -O2 $(OBJ_KERNEL) $(OBJ_ASM) -lgcc
@@ -24,8 +25,8 @@ kernel:			$(OBJ_KERNEL)
 asm:			$(OBJ_ASM)
 #				./toolchain/cross/x86_64/bin/i686-elf-as $(SRC_ASM) -o $(OBJ_ASM)
 
-bin/%.o: src/%.cpp
-				./toolchain/cross/x86_64/bin/i686-elf-g++ -c $< -o $@ $(CPPFLAGS) 
+bin/%.o: src/%.c
+				./toolchain/cross/x86_64/bin/i686-elf-gcc -c $< -o $@ $(CFLAGS) 
 
 bin/%.o: asm/%.asm
 				./toolchain/cross/x86_64/bin/i686-elf-as $< -o $@ $(OBJ_ASM)

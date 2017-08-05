@@ -1,15 +1,16 @@
-#include "Terminal.hpp"
+#include "terminal.h"
 
-uint8_t Terminal::vga_entry_color(enum vga_color fg, enum vga_color bg) 
+uint8_t vga_entry_color(enum vga_color fg, enum vga_color bg) 
 {
 	return fg | bg << 4;
 }
  
-uint16_t Terminal::vga_entry(unsigned char uc, uint8_t color) 
+uint16_t vga_entry(unsigned char uc, uint8_t color) 
 {
 	return (uint16_t) uc | (uint16_t) color << 8;
 }
 
+/*
 Terminal::Terminal() 
 {
     this->row = 0;
@@ -61,8 +62,14 @@ void Terminal::write(char *str)
 {
 	int index = 0;
 	while (str[index])
-	{
 		this->append(str[index]);
-		index++;
-	}
 }
+
+void Terminal::writeLine(char *str)
+{
+	int index = 0;
+	while (str[index])
+		this->append(str[index++]);
+	this->append('\n');
+}
+*/

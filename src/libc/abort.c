@@ -1,4 +1,4 @@
-#include "GuiziOS.hpp"
+#include "GuiziOS.h"
 
 void abort() {
 	printf("kernel: panic: abort()\n");

@@ -1,4 +1,4 @@
-#include "GuiziOS.hpp"
+#include "GuiziOS.h"
 
 void* memset(void* bufptr, int value, size_t size) {
 	unsigned char* buf = (unsigned char*) bufptr;

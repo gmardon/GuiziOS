@@ -1,6 +1,6 @@
-#include "Kernel.hpp"
+#include "kernel.h"
 
-inline void Kernel::write_io(uint16_t port, uint8_t val)
+inline void writeio(uint16_t port, uint8_t val)
 {
     asm volatile ( "outb %0, %1" : : "a"(val), "Nd"(port) );
     /* There's an outb %al, $imm8  encoding, for compile-time constant port numbers that fit in 8b.  (N constraint).
@@ -9,28 +9,11 @@ inline void Kernel::write_io(uint16_t port, uint8_t val)
      * %1 expands to %dx because  port  is a uint16_t.  %w1 could be used if we had the port number a wider C type */
 }
 
-inline uint8_t Kernel::read_io(uint16_t port)
+inline uint8_t readio(uint16_t port)
 {
     uint8_t ret;
     asm volatile ( "inb %1, %0"
                    : "=a"(ret)
                    : "Nd"(port) );
     return ret;
-}
-
-
-Kernel::Kernel() 
-{
-    //this->terminal = Terminal
-    terminal.write("[GuiziOS] Kernel is starting...\n not now");
-}
-
-Kernel::~Kernel() 
-{
-    
-}
-
-void Kernel::run()
-{
-
 }

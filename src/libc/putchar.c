@@ -1,4 +1,4 @@
-#include "GuiziOS.hpp"
+#include "GuiziOS.h"
 
 int putchar(int ic) {
 	char c = (char) ic;
