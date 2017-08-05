@@ -31,6 +31,7 @@ public:
 
     void setColor(uint8_t color);
     void append(char character);
+	void write(char *str);
     void setCharAt(char character, uint8_t color, size_t x, size_t y);
 private:
     size_t row;

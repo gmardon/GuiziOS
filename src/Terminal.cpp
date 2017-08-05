@@ -43,10 +43,26 @@ void Terminal::setCharAt(char character, uint8_t color, size_t x, size_t y)
 
 void Terminal::append(char character) 
 {
-	setCharAt(character, color, column, row);
+	if (character == '\n')
+	{
+		this->row++;
+		this->column = 0;
+	}
+	else
+		Terminal::setCharAt(character, color, column, row);
 	if (++this->column == VGA_WIDTH) {
 		this->column = 0;
 		if (++this->row == VGA_HEIGHT)
 			this->row = 0;
+	}
+}
+
+void Terminal::write(char *str)
+{
+	int index = 0;
+	while (str[index])
+	{
+		this->append(str[index]);
+		index++;
 	}
 }

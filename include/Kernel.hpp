@@ -5,18 +5,16 @@
 
 class Kernel {
 public:
-    Kernel();
-    ~Kernel();
-
     inline void write_io(uint16_t port, uint8_t val);
     inline uint8_t read_io(uint16_t port);
     void run();
 
-    static Kernel& Instance();
+    Kernel();
+    ~Kernel();
 private:
+    Kernel& operator= (const Kernel&){}
+    Kernel (const Kernel&){}
     Terminal terminal;
-    static Kernel instance;
 };
 
-extern "C" Kernel kernel;
 #endif
