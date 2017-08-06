@@ -2,6 +2,6 @@
 
 void main(void) {
     terminal_init();
-    printf("Loading GuiziOS...\nwith new content");
+    printf("Loading GuiziOS...\n");
     keyboard_init();
 }
