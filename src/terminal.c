@@ -10,66 +10,52 @@ uint16_t vga_entry(unsigned char uc, uint8_t color)
 	return (uint16_t) uc | (uint16_t) color << 8;
 }
 
-/*
-Terminal::Terminal() 
+void terminal_init()
 {
-    this->row = 0;
-	this->column = 0;
-	this->color = this->vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
-	this->buffer = (uint16_t*) 0xB8000;
+	terminal_row = 0;
+	terminal_column = 0;
+	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
+	terminal_buffer = VGA_MEMORY;
 	for (size_t y = 0; y < VGA_HEIGHT; y++) {
 		for (size_t x = 0; x < VGA_WIDTH; x++) {
-			size_t index = y * VGA_WIDTH + x;
-			this->buffer[index] = this->vga_entry(' ', this->color);
+			const size_t index = y * VGA_WIDTH + x;
+			terminal_buffer[index] = vga_entry(' ', terminal_color);
 		}
 	}
 }
 
-Terminal::~Terminal()
-{
-
+void terminal_setcolor(uint8_t color) {
+	terminal_color = color;
 }
-
-void Terminal::setColor(uint8_t color)
-{
-    this->color = color;
-}
-
-
-void Terminal::setCharAt(char character, uint8_t color, size_t x, size_t y) 
-{
+ 
+void terminal_putentryat(unsigned char c, uint8_t color, size_t x, size_t y) {
 	const size_t index = y * VGA_WIDTH + x;
-	buffer[index] = this->vga_entry(character, color);
+	terminal_buffer[index] = vga_entry(c, color);
 }
-
-void Terminal::append(char character) 
-{
-	if (character == '\n')
+ 
+void terminal_putchar(char c) {
+	unsigned char uc = c;
+	if (c == '\n')
 	{
-		this->row++;
-		this->column = 0;
+		terminal_column = 0;
+		terminal_row++;
 	}
 	else
-		Terminal::setCharAt(character, color, column, row);
-	if (++this->column == VGA_WIDTH) {
-		this->column = 0;
-		if (++this->row == VGA_HEIGHT)
-			this->row = 0;
-	}
+	{
+		terminal_putentryat(uc, terminal_color, terminal_column, terminal_row);
+		if (++terminal_column == VGA_WIDTH) {
+			terminal_column = 0;
+			if (++terminal_row == VGA_HEIGHT)
+				terminal_row = 0;
+		}
+	}	
 }
-
-void Terminal::write(char *str)
-{
-	int index = 0;
-	while (str[index])
-		this->append(str[index]);
+ 
+void terminal_write(const char* data, size_t size) {
+	for (size_t i = 0; i < size; i++)
+		terminal_putchar(data[i]);
 }
-
-void Terminal::writeLine(char *str)
-{
-	int index = 0;
-	while (str[index])
-		this->append(str[index++]);
-	this->append('\n');
+ 
+void terminal_writestring(const char* data) {
+	terminal_write(data, strlen(data));
 }
-*/

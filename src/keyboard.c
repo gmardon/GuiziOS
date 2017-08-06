@@ -11,3 +11,8 @@ char keytoascii(uint8_t key)
 {
     return 'c';
 }
+
+void keyboard_init()
+{
+    
+}

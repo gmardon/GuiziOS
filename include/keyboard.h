@@ -4,4 +4,5 @@
 #include "kernel.h"
 char keytoascii(uint8_t key);
 uint8_t readkey();
+void keyboard_init();
 #endif
